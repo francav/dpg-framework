@@ -1,9 +1,13 @@
 name: deploy
 
-# Builds the site and uploads the Pages artifact on every push to main, but the publish step is
-# GATED: it only runs once the repo variable PUBLISH_SITE is set to "true" (and GitHub Pages is
-# enabled for the repo). This keeps the deploy pipeline verified while the repo is still private and
-# before a domain is chosen. To go live, set the PUBLISH_SITE repo variable to "true".
+# Publishes the site to GitHub Pages. The entire workflow is GATED behind the repo variable
+# PUBLISH_SITE: it does nothing until PUBLISH_SITE is set to "true" AND GitHub Pages is enabled for
+# the repo (Settings -> Pages -> Source: GitHub Actions). This keeps the deploy pipeline in place
+# while the repo is still private and before a domain is chosen.
+#
+# The site build itself is verified on every push/PR by the `ci` workflow, so gating this off does
+# not reduce build coverage. To go live: enable Pages, then set the PUBLISH_SITE repo variable to
+# "true".
 on:
   push:
     branches: [main]
@@ -20,6 +24,7 @@ concurrency:
 
 jobs:
   build:
+    if: vars.PUBLISH_SITE == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
