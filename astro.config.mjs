@@ -14,8 +14,41 @@ export default defineConfig({
         "An open, neutral foundation for governing the behavioral predictability of automated BPM processes.",
       // English-only for now: no i18n, no versioning.
       sidebar: [
-        { label: "Consultant track", autogenerate: { directory: "consultant" } },
-        { label: "Builder track", autogenerate: { directory: "builder" } },
+        {
+          label: "Consultant track",
+          items: [
+            { label: "Overview", slug: "consultant" },
+            {
+              label: "Concepts",
+              items: [
+                "consultant/concepts/behavioral-governance",
+                "consultant/concepts/determinism-classification",
+                "consultant/concepts/runtime-transparency",
+                "consultant/concepts/contract-first-integration",
+                "consultant/concepts/simulation-as-feedback",
+                "consultant/concepts/policy-model",
+              ],
+            },
+            "consultant/methodology",
+            "consultant/maturity",
+            {
+              label: "Reference",
+              items: ["consultant/terminology", "consultant/faq", "consultant/bibliography"],
+            },
+            "consultant/worked-example",
+          ],
+        },
+        {
+          label: "Builder track",
+          items: [
+            { label: "Overview", slug: "builder" },
+            "builder/getting-started",
+            "builder/runtime-profiles",
+            "builder/spec-and-tools",
+            "builder/cli",
+            "builder/reference-implementation",
+          ],
+        },
       ],
     }),
   ],
