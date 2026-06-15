@@ -1,0 +1,11 @@
+{
+  "name": "dpg-framework",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "echo build-ok",
+    "lint": "echo lint-ok",
+    "test": "echo test-ok"
+  }
+}
