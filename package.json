@@ -7,13 +7,23 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "echo \"no site generator yet (SSG deferred)\"",
-    "lint": "npm run format:check",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "astro check",
     "test": "echo \"no tests yet\"",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
+  "dependencies": {
+    "@astrojs/starlight": "^0.36",
+    "astro": "^5",
+    "sharp": "^0.34"
+  },
   "devDependencies": {
-    "prettier": "^3"
+    "@astrojs/check": "^0.9",
+    "prettier": "^3",
+    "prettier-plugin-astro": "^0.14",
+    "typescript": "^5.9"
   }
 }

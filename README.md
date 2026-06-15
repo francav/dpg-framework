@@ -12,8 +12,15 @@ Early development (0.1.0). Content and structure are unstable and subject to cha
 
 ## Building
 
-The documentation site generator has not been selected yet; build instructions will be added once
-it is in place.
+The site is built with [Astro Starlight](https://starlight.astro.build/). Requires Node.js 20+.
+
+```sh
+npm install      # install dependencies
+npm run dev      # local dev server with live reload
+npm run build    # produce the static site in dist/
+npm run preview  # preview the built site
+npm run lint     # type- and content-check (astro check)
+```
 
 ## License
 

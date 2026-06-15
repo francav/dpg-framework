@@ -1,0 +1,47 @@
+name: deploy
+
+# Builds the site and uploads the Pages artifact on every push to main, but the publish step is
+# GATED: it only runs once the repo variable PUBLISH_SITE is set to "true" (and GitHub Pages is
+# enabled for the repo). This keeps the deploy pipeline verified while the repo is still private and
+# before a domain is chosen. To go live, set the PUBLISH_SITE repo variable to "true".
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    # GATE: do not publish until the repo opts in.
+    if: vars.PUBLISH_SITE == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
